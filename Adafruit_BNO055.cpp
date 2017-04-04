@@ -107,7 +107,7 @@ bool Adafruit_BNO055::begin(adafruit_bno055_opmode_t mode)
   write8(BNO055_AXIS_MAP_SIGN_ADDR, REMAP_SIGN_P2); // P0-P7, Default is P1
   delay(10);
   */
-  
+
   write8(BNO055_SYS_TRIGGER_ADDR, 0x0);
   delay(10);
   /* Set the requested operating mode (see section 3.3) */
@@ -152,14 +152,12 @@ void Adafruit_BNO055::setExtCrystalUse(boolean usextal)
   setMode(modeback);
   delay(20);
 }
-
-
 /**************************************************************************/
 /*!
     @brief  Gets the latest system status info
 */
 /**************************************************************************/
-void Adafruit_BNO055::getSystemStatus(uint8_t *system_status, uint8_t *self_test_result, uint8_t *system_error)
+void Adafruit_BNO055::getSystemStatus(uint8_t *system_status)
 {
   write8(BNO055_PAGE_ID_ADDR, 0);
 
@@ -175,6 +173,16 @@ void Adafruit_BNO055::getSystemStatus(uint8_t *system_status, uint8_t *self_test
 
   if (system_status != 0)
     *system_status    = read8(BNO055_SYS_STAT_ADDR);
+}
+/**************************************************************************/
+/*!
+    @brief  Gets the latest system self test results.
+*/
+/**************************************************************************/
+void Adafruit_BNO055::getSystemTestResult(uint8_t *self_test_result)
+{
+  write8(BNO055_PAGE_ID_ADDR, 0);
+
 
   /* Self Test Results (see section )
      --------------------------------
@@ -189,6 +197,16 @@ void Adafruit_BNO055::getSystemStatus(uint8_t *system_status, uint8_t *self_test
 
   if (self_test_result != 0)
     *self_test_result = read8(BNO055_SELFTEST_RESULT_ADDR);
+
+}
+/**************************************************************************/
+/*!
+    @brief  Gets the latest system error info
+*/
+/**************************************************************************/
+void Adafruit_BNO055::getSystemError(uint8_t *system_status, uint8_t *self_test_result, uint8_t *system_error)
+{
+  write8(BNO055_PAGE_ID_ADDR, 0);
 
   /* System Error (see section 4.3.59)
      ---------------------------------
@@ -207,7 +225,6 @@ void Adafruit_BNO055::getSystemStatus(uint8_t *system_status, uint8_t *self_test
   if (system_error != 0)
     *system_error     = read8(BNO055_SYS_ERR_ADDR);
 
-  delay(200);
 }
 
 /**************************************************************************/

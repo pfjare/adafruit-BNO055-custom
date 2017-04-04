@@ -290,9 +290,9 @@ class Adafruit_BNO055 : public Adafruit_Sensor
     void  getRevInfo          ( adafruit_bno055_rev_info_t* );
     void  displayRevInfo      ( void );
     void  setExtCrystalUse    ( boolean usextal );
-    void  getSystemStatus     ( uint8_t *system_status,
-                                uint8_t *self_test_result,
-                                uint8_t *system_error);
+    void  getSystemStatus     ( uint8_t *system_status );
+    void  getSystemTestResult ( uint8_t *self_test_result );
+    void  getSystemError      ( uint8_t *system_error );                              
     void  displaySystemStatus ( void );
     void  getCalibration      ( uint8_t* system, uint8_t* gyro, uint8_t* accel, uint8_t* mag);
 
